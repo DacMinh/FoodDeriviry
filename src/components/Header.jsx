@@ -3,14 +3,29 @@ import Logo from "./imgs/logo.png";
 import { MdShoppingBasket } from "react-icons/md";
 import Avatar from "./imgs/avatar.png";
 import { motion } from "framer-motion";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { app } from "../firebase.config";
+import { useStateValue } from "../context/StateProvider";
+import {actionType} from "../context/reducer"
 
 const Header = () => {
+  const firebaseAuth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+  const[{user},dispatch] = useStateValue()
+  const login = async () => {
+    const {user:{refreshToken,providerData}} = await signInWithPopup(firebaseAuth, provider);
+    dispatch({
+      type : actionType.SET_USER,
+      user : providerData [0],
+    })
+
+  };
   return (
     <header className="fixed z-50 w-screen p-6 px-16">
       {/* cho máy tính và tablet */}
       <div className="hidden md:flex w-full h-full  items-center justify-between ">
-        <Link  to={'/'}className="flex items-center gap-2 flex-grow">
+        <Link to={"/"} className="flex items-center gap-2 flex-grow">
           <img src={Logo} className="w-8 object-cover" alt="logo" />
           <p className=" text-headingColor text-xl font-bold"> Gà Quay </p>
         </Link>
@@ -38,12 +53,15 @@ const Header = () => {
           </div>
         </div>
 
-        <motion.img
-          whileTap={{ scale: 0.6 }}
-          src={Avatar}
-          className="w-10 min-8-[40px] h-10 min-h-[40px] drop-shadow-xl m-5  cursor-pointer "
-          alt="avatar"
-        />
+        <div className="relative">
+          <motion.img
+            whileTap={{ scale: 0.6 }}
+            src={user ? user.photoURL : Avatar}
+            className="w-10 min-8-[40px] h-10 min-h-[40px] drop-shadow-xl m-5  cursor-pointer "
+            alt="avatar"
+            onClick={login}
+          />
+        </div>
       </div>
 
       {/* cho điện thoai */}
