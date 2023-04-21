@@ -57,7 +57,7 @@ const Header = () => {
           <motion.img
             whileTap={{ scale: 0.6 }}
             src={user ? user.photoURL : Avatar}
-            className="w-10 min-8-[40px] h-10 min-h-[40px] drop-shadow-xl m-5  cursor-pointer "
+            className="w-10 min-8-[40px] h-10 min-h-[40px] drop-shadow-xl m-5  cursor-pointer rounded-full"
             alt="avatar"
             onClick={login}
           />
