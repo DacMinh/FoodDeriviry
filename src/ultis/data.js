@@ -22,8 +22,47 @@ export const heroData = [
   {
     id: 4,
     name: "Hải Sản",
-    decp: "Sò,hến, ăn kèm nước mắm",
+    decp: "Sò,hến,nước mắm",
     price: "50.000",
     imageSrc: Fi1,
+  },
+];
+
+export const categories = [
+  {
+    id: 1,
+    name: "Gà",
+    urlParamName: "chicken",
+  },
+  {
+    id: 2,
+    name: "Ca-ri",
+    urlParamName: "curry",
+  },
+  {
+    id: 3,
+    name: "Cơm",
+    urlParamName: "rice",
+  },
+  {
+    id: 4,
+    name: "Cá",
+    urlParamName: "fish",
+  },
+  {
+    id: 5,
+    name: "Nước ép",
+    urlParamName: "fruits",
+  },
+  {
+    id: 6,
+    name: "Kem",
+    urlParamName: "icecreams",
+  },
+
+  {
+    id: 7,
+    name: "Nước ngọt",
+    urlParamName: "drinks",
   },
 ];
