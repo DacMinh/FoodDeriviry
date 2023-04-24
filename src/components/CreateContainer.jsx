@@ -107,7 +107,6 @@ const CreateContainer = () => {
         setAlertStatus("Thành công");
         setTimeout(() => {
           setFields(false);
-          
         }, 4000);
       }
     } catch (error) {
@@ -120,14 +119,13 @@ const CreateContainer = () => {
       }, 4000);
     }
   };
-const clearData = () =>{
-  setTitle('');
-  setImageAsset(null);
-  setCalories('');
-  setPrice('');
-  setCalories('Chọn danh mục')
-};
-
+  const clearData = () => {
+    setTitle("");
+    setImageAsset(null);
+    setCalories("");
+    setPrice("");
+    setCalories("");
+  };
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center ">
