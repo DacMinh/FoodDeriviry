@@ -17,7 +17,9 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { storage } from "../firebase.config";
-import { saveItem } from "../ultis/firebaseFunctions";
+import { getAllFoodItems, saveItem } from "../ultis/firebaseFunctions";
+import { useStateValue } from "../context/StateProvider";
+import { actionType } from "../context/reducer";
 
 const CreateContainer = () => {
   const [title, setTitle] = useState("");
@@ -29,6 +31,7 @@ const CreateContainer = () => {
   const [msg, setMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [imageAsset, setImageAsset] = useState(null);
+  const [{foodItems},dispatch] =useStateValue()
 
   const UpLoadImage = (e) => {
     setIsLoading(true);
@@ -118,6 +121,7 @@ const CreateContainer = () => {
         setIsLoading(false);
       }, 4000);
     }
+    fetchData();
   };
   const clearData = () => {
     setTitle("");
@@ -126,6 +130,14 @@ const CreateContainer = () => {
     setPrice("");
     setCalories("");
   };
+  const  fetchData = async () =>{
+    await getAllFoodItems().then((data) => {
+      dispatch({
+        type:actionType.SET_FOOD_ITEMS,
+        foodItems:data,
+      })
+    })
+  }
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center ">
@@ -206,7 +218,7 @@ const CreateContainer = () => {
                   <div className="relative h-full">
                     <img
                       src={imageAsset}
-                      alt=" uploaded image"
+                      alt="uploadimage"
                       className="w-full h-full object-cover"
                     />
                     <button
