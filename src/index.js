@@ -7,11 +7,13 @@ import { StateProvider } from "./context/StateProvider";
 import { initialState } from "./context/initalState";
 import reducer from "./context/reducer";
 
-ReactDOM.render(
+const rootElement = document.getElementById("root");
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
   <Router>
     <StateProvider initialState={initialState} reducer={reducer}> 
       <App />
     </StateProvider>
-  </Router>,
-  document.getElementById("root")
+  </Router>
 );

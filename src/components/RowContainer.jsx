@@ -1,23 +1,34 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
-const RowContainer = ({ flag, data }) => {
+
+
+const RowContainer = ({ flag, data, scrollValue }) => {
+
+  const rowContainer = useRef ()
+
+  useEffect (() => {
+    rowContainer.current.scrollLeft +=  scrollValue;
+  }, [scrollValue])
   return (
     <div
-      className={`w-full my-12 ${
-        flag ? "overflow-scroll" : "overflow-x-hidden"
+    ref ={rowContainer}
+
+      className={`w-full flex  gap-3 items-center my-12 scroll-smooth ${
+        flag ? "overflow-x-scroll scrollbar-none" : "overflow-x-hidden flex-wrap"
       }`}
     >
       {data &&
         data.map((item) => (
           <div
             key={item.id}
-            className="w-300 md:w-350   h-auto bg-cardOverlay rounded-lg my-12 backdrop-blur-lg p-2 hover:drop-shadow-xl "
+            className="w-275 md:w-340 h-auto px-4  min-w-[275px] md:mim-w-[300px]  bg-cardOverlay rounded-lg my-12 backdrop-blur-lg p-2 hover:drop-shadow-xl flex flex-col  items-center  relative
+            justify-between"
           >
             <div className="w-full flex items-center justify-between">
               <motion.img
-                whileTap={{ scale: 1.2 }}
-                src="https://firebasestorage.googleapis.com/v0/b/restaurantapp-c95ea.appspot.com/o/imgaes%2F1682302466627-i7.png?alt=media&token=820c8725-4b8d-4ed6-8822-6c0e84cfe636"
+                whileHover={{ scale: 1.2 }}
+                src={item?.imageURL}
                 className="w-40 -mt-8 drop-shadow-2xl"
                 alt=""
               />
@@ -30,12 +41,12 @@ const RowContainer = ({ flag, data }) => {
             </div>
             <div className="w-full flex flex-col gap-4 items-end justify-end">
               <p className="text-textColor font-semibold text-base md:text-lg">
-                Kem dâu
+                {item?.title}
               </p>
-              <p className="mt-1 text-sm text-gray-500">45 Calories</p>
+              <p className="mt-1 text-sm text-gray-500">{item?.calories} Calories</p>
               <div className="flex items-center gap-8">
                 <p className="text-lg text-headingColor font-semibold">
-                  25000 <span className="text-sm text-red-500">VND</span>
+                  {item?.price} <span className="text-sm text-red-500">VND</span>
                 </p>
               </div>
             </div>
