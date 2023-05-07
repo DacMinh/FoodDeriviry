@@ -32,37 +32,37 @@ export const categories = [
   {
     id: 1,
     name: "Gà",
-    urlParamName: "chicken",
+    urlParamName: "Gà",
   },
   {
     id: 2,
     name: "Ca-ri",
-    urlParamName: "curry",
+    urlParamName: "Ca-ri",
   },
   {
     id: 3,
     name: "Cơm",
-    urlParamName: "rice",
+    urlParamName: "Cơm",
   },
   {
     id: 4,
     name: "Cá",
-    urlParamName: "fish",
+    urlParamName: "Cá",
   },
   {
     id: 5,
     name: "Nước ép",
-    urlParamName: "fruits",
+    urlParamName: "Nước ép",
   },
   {
     id: 6,
     name: "Kem",
-    urlParamName: "icecreams",
+    urlParamName: "Kem",
   },
 
   {
     id: 7,
     name: "Nước ngọt",
-    urlParamName: "drinks",
+    urlParamName: "Nước ngọt",
   },
 ];

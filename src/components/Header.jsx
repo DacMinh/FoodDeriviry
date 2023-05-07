@@ -12,12 +12,12 @@ import { actionType } from "../context/reducer";
 const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
   const [isMenu, setIsMenu] = useState(false);
   const login = async () => {
     if (!user) {
       const {
-        user: {refreshToken, providerData },
+        user: { refreshToken, providerData },
       } = await signInWithPopup(firebaseAuth, provider);
       dispatch({
         type: actionType.SET_USER,
@@ -38,6 +38,12 @@ const Header = () => {
     });
   };
 
+  const showCart = () => {
+    dispatch({
+      type: actionType.SET_CART_SHOW,
+      cartShow: !cartShow,
+    });
+  };
   return (
     <header className="fixed z-50 w-screen p-6 px-4 md:p-6 bg-primary">
       {/* cho máy tính và tablet */}
@@ -80,11 +86,19 @@ const Header = () => {
           </motion.ul>
         </div>
 
-        <div className="relative flex items-center justify-center ">
-          <MdShoppingBasket className="text-textColor text-2xl  cursor-pointer" />
-          <div className="w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center absolute -top-3 -right-3 ">
-            <p className="text-xs text-white font-semibold"> 2</p>
-          </div>
+        <div
+          className="relative flex items-center justify-center"
+          onClick={showCart}
+        >
+          <MdShoppingBasket className="text-textColor text-2xl cursor-pointer" />
+
+          {cartItems && cartItems.length > 0 && (
+            <div className="w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center absolute -top-3 -right-3">
+              <p className="text-xs text-white font-semibold">
+                {cartItems.length}
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="relative">
@@ -128,11 +142,19 @@ const Header = () => {
           <p className=" text-headingColor text-xl font-bold"> Gà Quay </p>
         </Link>
 
-        <div className="relative flex items-center justify-center ">
+        <div
+          className="relative flex items-center justify-center "
+          onClick={showCart}
+        >
           <MdShoppingBasket className="text-textColor text-2xl  cursor-pointer" />
-          <div className="w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center absolute -top-3 -right-3 ">
-            <p className="text-xs text-white font-semibold"> 2</p>
-          </div>
+ 
+          {cartItems && cartItems.length > 0 && (
+            <div className="w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center absolute -top-3 -right-3">
+              <p className="text-xs text-white font-semibold">
+                {cartItems.length}
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="relative">

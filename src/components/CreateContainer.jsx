@@ -31,7 +31,7 @@ const CreateContainer = () => {
   const [msg, setMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [imageAsset, setImageAsset] = useState(null);
-  const [{foodItems},dispatch] =useStateValue()
+  const [{ foodItems }, dispatch] = useStateValue();
 
   const UpLoadImage = (e) => {
     setIsLoading(true);
@@ -130,14 +130,14 @@ const CreateContainer = () => {
     setPrice("");
     setCalories("");
   };
-  const  fetchData = async () =>{
+  const fetchData = async () => {
     await getAllFoodItems().then((data) => {
       dispatch({
-        type:actionType.SET_FOOD_ITEMS,
-        foodItems:data,
-      })
-    })
-  }
+        type: actionType.SET_FOOD_ITEMS,
+        foodItems: data,
+      });
+    });
+  };
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center ">
