@@ -3,7 +3,9 @@ import { BiMinus, BiPlus } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
-const CartItem = ({ item }) => {
+let items = [];
+
+const CartItem = ({ item,setFlag, flag  }) => {
   const [qty, setQty] = useState(1);
   const [items, setItems] = useState([]);
   const [{ cartItems }, dispatch] = useStateValue();
@@ -11,7 +13,7 @@ const CartItem = ({ item }) => {
   const cartDispatch = () => {
     localStorage.setItem("cartItems", JSON.stringify(items));
     dispatch({
-      type: actionType.SET_CART,
+      type: actionType.SET_CARTITEMS,
       cartItems: items,
     });
   };
@@ -19,39 +21,32 @@ const CartItem = ({ item }) => {
   const updateQty = (action, id) => {
     if (action === "add") {
       setQty(qty + 1);
-      const updatedItems = cartItems.map((item) => {
+      cartItems.map((item) => {
         if (item.id === id) {
-          return {
-            ...item,
-            qty: item.qty + 1,
-          };
-        }
-        return item;
+           
+            item.qty += 1
+            setFlag(flag+1);
+          }      
       });
-      setItems(updatedItems);
-      cartDispatch();
-    } else if (action === "remove") {
-      if (qty === 1) {
-        setQty(1);
-        const updatedItems = cartItems.filter((item) => item.id !== id);
-        setItems(updatedItems);
+     cartDispatch();} else{
+      if (qty == 1 ) {
+        items = cartItems.filter((item) => item.id !== id);
+        setFlag(flag +1);
         cartDispatch();
       } else {
-        setQty(qty - 1);
-        const updatedItems = cartItems.map((item) => {
+        setQty (qty-1);
+        cartItems.map((item) => {
           if (item.id === id) {
-            return {
-              ...item,
-              qty: item.qty - 1,
-            };
+            item.qty -=1;
+            setFlag(flag +1);
           }
-          return item;
         });
-        setItems(updatedItems);
         cartDispatch();
       }
-    }
-  };
+     }
+    };
+
+
   useEffect(() => {
     setItems(cartItems);
   }, [cartItems]);
